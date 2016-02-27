@@ -49,7 +49,8 @@ public abstract class Rule implements Serializable {
 
     protected static String getThingName(int row, int thing)
     {
-        return 'A' + new Integer(row).toString() + new Integer(row).toString(thing);
+        String s = String.valueOf((char)((int)'A' + row));
+        return s + new Integer(row).toString(thing);
     }
 
     /*

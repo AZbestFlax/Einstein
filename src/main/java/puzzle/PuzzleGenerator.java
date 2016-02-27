@@ -74,16 +74,16 @@ public class PuzzleGenerator implements Parameters{
 
     private static void shuffle(int arr[])
     {
-        int RAND_MAX = 6;
+        int RAND_MAX = 0x7fff;
         Random rand = new Random();
         int a, b, c;
         for (int i = 0; i < 30; i++) {
-            a = (int)(((double)PUZZLE_SIZE)*rand.nextDouble()/(RAND_MAX+1.0));
+            a = rand.nextInt(PUZZLE_SIZE);
             if ((a < 0) || (a >= PUZZLE_SIZE)) {
                 System.out.println("Index error\n");
                 throw new RuntimeException();
             }
-            b = (int)(((double)PUZZLE_SIZE)*rand.nextDouble()/(RAND_MAX+1.0));
+            b = rand.nextInt(PUZZLE_SIZE);
             if ((b < 0) || (b >= PUZZLE_SIZE)) {
                 System.out.println("Index error\n");
                 throw new RuntimeException();
@@ -134,8 +134,6 @@ public class PuzzleGenerator implements Parameters{
         } while (possible);
     }
 
-}
-
     /*
             void savePuzzle(SolvedPuzzle &puzzle, std::ostream &stream)
             {
@@ -151,26 +149,27 @@ public class PuzzleGenerator implements Parameters{
                         puzzle[row][col] = readInt(stream);
             }
     */
-    /*static void printPuzzle(SolvedPuzzle &puzzle)
-{
-    for (int i = 0; i < PUZZLE_SIZE; i++) {
-        char prefix = 'A' + i;
-        for (int j = 0; j < PUZZLE_SIZE; j++) {
-            if (j)
-                std::cout << "  ";
-            std::cout << prefix << puzzle[i][j];
-        }
-        std::cout << std::endl;
+    public static void printPuzzle(int[][] puzzle)
+    {
+        for (int i = 0; i < PUZZLE_SIZE; i++) {
+            char prefix = (char)((int)'A' + i);
+            for (int j = 0; j < PUZZLE_SIZE; j++) {
+                if (j != 0)
+                    System.out.print("  ");
+                System.out.print(prefix + puzzle[i][j]);
+            }
+            System.out.println();
     }
 }
 
 
-static void printRules(Rules &rules)
-{
-    for (Rules::iterator i = rules.begin(); i != rules.end(); i++)
-        std::cout << (*i)->getAsText() << std::endl;;
-}*/
+    public static void printRules(List<Rule> rules)
+    {
+        for (Rule r: rules)
+            System.out.println(r);
+    }
 
+}
 
 
 /*int main(int argc, char *argv[])
