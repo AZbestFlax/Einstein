@@ -2,12 +2,10 @@ package puzzle;
 
 import rules.Rule;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by AZbest on 27.02.2016.
- */
 public class PuzzleGenerator implements Parameters{
 
     public static void genPuzzle(int[][] puzzle, List<Rule> rules) {
@@ -59,12 +57,12 @@ public class PuzzleGenerator implements Parameters{
                 String s = rule.toString();
                 for (Rule r: rules)
                     if (r.toString().equals(s)) {
-                        rules.remove(r);
                         inactiveRule = true;
                         break;
                     }
                 if ( !inactiveRule ) {
 //printf("adding rule %s\n", rule->getAsText().c_str());
+                    System.out.println("adding rule " + rule);
                     rules.add(rule);
                     rulesDone = canSolve(puzzle, rules);
                 }
@@ -74,31 +72,20 @@ public class PuzzleGenerator implements Parameters{
 
     private static void shuffle(int arr[])
     {
-        int RAND_MAX = 0x7fff;
         Random rand = new Random();
-        int a, b, c;
-        for (int i = 0; i < 30; i++) {
+        int a, c;
+        for (int i = 0; i < PUZZLE_SIZE; i++) {
             a = rand.nextInt(PUZZLE_SIZE);
-            if ((a < 0) || (a >= PUZZLE_SIZE)) {
-                System.out.println("Index error\n");
-                throw new RuntimeException();
-            }
-            b = rand.nextInt(PUZZLE_SIZE);
-            if ((b < 0) || (b >= PUZZLE_SIZE)) {
-                System.out.println("Index error\n");
-                throw new RuntimeException();
-            }
             c = arr[a];
-            arr[a] = arr[b];
-            arr[b] = c;
+            arr[a] = arr[i];
+            arr[i] = c;
         }
     }
 
     private static boolean canSolve(int[][] puzzle, List<Rule> rules)
     {
         Possibilities pos = new Possibilities();
-        boolean changed = false;
-
+        boolean changed;
         do {
             changed = false;
             for (Rule r: rules) {
@@ -112,9 +99,7 @@ public class PuzzleGenerator implements Parameters{
                 }
             }
         } while (changed);
-
-        boolean res = pos.isSolved();
-        return res;
+        return pos.isSolved();
     }
 
     private static void removeRules(int[][] puzzle, List<Rule> rules)
@@ -123,7 +108,7 @@ public class PuzzleGenerator implements Parameters{
         do {
             possible = false;
             for (Rule r: rules) {
-                List<Rule> excludedRules = rules;
+                List<Rule> excludedRules = new ArrayList<Rule>(rules);
                 excludedRules.remove(r);
                 if (canSolve(puzzle, excludedRules)) {
                     possible = true;
@@ -156,7 +141,7 @@ public class PuzzleGenerator implements Parameters{
             for (int j = 0; j < PUZZLE_SIZE; j++) {
                 if (j != 0)
                     System.out.print("  ");
-                System.out.print(prefix + puzzle[i][j]);
+                System.out.print("" + prefix + puzzle[i][j]);
             }
             System.out.println();
     }

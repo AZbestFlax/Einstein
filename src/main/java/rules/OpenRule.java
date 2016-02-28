@@ -28,16 +28,16 @@ public class OpenRule extends Rule {
         if (! possibilities.isDefined(col, row)) {
             possibilities.set(col, row, thing);
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     public void draw(int x, int y, IconSet iconSet, boolean highlight) {
 
     }
 
-    public boolean applyOnStart() { return true; };
+    public boolean applyOnStart() { return true; }
 
-    public ShowOptions getShowOpts() { return SHOW_NOTHING; };
+    public ShowOptions getShowOpts() { return SHOW_NOTHING; }
 
 }

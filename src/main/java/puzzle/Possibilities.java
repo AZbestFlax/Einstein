@@ -9,7 +9,7 @@ public class Possibilities implements Parameters {
     }
     //Possibilities(std::istream &stream);
     //void save(std::ostream &stream);
-    void reset() {
+    private void reset() {
         for (int i = 0; i < PUZZLE_SIZE; i++)
             for (int j = 0; j < PUZZLE_SIZE; j++)
                 for (int k = 0; k < PUZZLE_SIZE; k++)
@@ -44,7 +44,7 @@ public class Possibilities implements Parameters {
     public boolean isDefined(int col, int row) {
         int solvedCnt = 0, unsolvedCnt = 0;
         for (int i = 0; i < PUZZLE_SIZE; i++)
-            if (pos[col][row][i] != 0)
+            if (pos[col][row][i] == 0)
                 unsolvedCnt++;
             else
                 solvedCnt++;
@@ -71,7 +71,7 @@ public class Possibilities implements Parameters {
         return cnt == 1 ? lastPos : -1;
     }
 
-    public boolean isSolved() {
+     boolean isSolved() {
         for (int i = 0; i < PUZZLE_SIZE; i++)
             for (int j = 0; j < PUZZLE_SIZE; j++)
                 if (! isDefined(i, j))
@@ -110,7 +110,7 @@ public class Possibilities implements Parameters {
     }
 
 
-    public  void checkSingles(int row) {
+    private  void checkSingles(int row) {
         int cellsCnt[] = new int[PUZZLE_SIZE];   // count of elements in cells
         int elsCnt[] = new int[PUZZLE_SIZE];     // total count of elements in row
         int elements[] = new int[PUZZLE_SIZE];   // one element of each cell
