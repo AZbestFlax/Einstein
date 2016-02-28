@@ -1,5 +1,5 @@
 package puzzle;
 
 public interface Parameters {
-    int PUZZLE_SIZE = 3;
+    int PUZZLE_SIZE = 5;
 }

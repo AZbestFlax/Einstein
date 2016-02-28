@@ -61,8 +61,7 @@ public class PuzzleGenerator implements Parameters{
                         break;
                     }
                 if ( !inactiveRule ) {
-//printf("adding rule %s\n", rule->getAsText().c_str());
-                    System.out.println("adding rule " + rule);
+                    //System.out.println("adding rule " + rule);
                     rules.add(rule);
                     rulesDone = canSolve(puzzle, rules);
                 }
